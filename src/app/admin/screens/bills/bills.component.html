@@ -1,0 +1,63 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Aadhar Details</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item">Components</li>
+          <li class="breadcrumb-item active">Blank</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+  
+    <section class="section">
+      <div class="container">
+        <h2 class="text-center">BILLS</h2>
+        <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
+        <div>
+          <label class="text-primary" for="file">Upload SSC Marks Memo:</label>
+          <input type="file" id="file" (change)="onFileChange($event)" />
+          <button class="btn btn-success m-5" type="submit" [disabled]="uploadForm.invalid">Upload</button>
+        </div>  
+      </form>
+    
+      <div *ngIf="aadhaarData">
+        <h3>Extracted Data:</h3>
+        <table class="table" border="1">
+          <tr>
+            <th>Name</th>
+            <td>{{ aadhaarData.name }}</td>
+          </tr>
+          <tr>
+            <th>Date of Birth</th>
+            <td>{{ aadhaarData.date_of_birth }}</td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td>{{ aadhaarData.gender }}</td>
+          </tr>
+          <tr>
+            <th>Aadhaar Number</th>
+            <td>{{ aadhaarData.aadhaar_number }}</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>{{ aadhaarData.address }}</td>
+          </tr>
+          <tr>
+            <th>Parent</th>
+            <td>{{ aadhaarData.Parent }}</td>
+          </tr>
+          <tr>
+            <th>Confidence</th>
+            <td>{{ aadhaarData.confidence }}</td>
+          </tr>
+        </table>
+      </div>
+    
+      <div *ngIf="errorMessage" class="error">
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+  </section>
+</main>

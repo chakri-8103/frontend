@@ -1,0 +1,82 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Marksheet Details</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Components</li>
+        <li class="breadcrumb-item active">Blank</li>
+      </ol>
+    </nav>
+  </div>
+  <!-- End Page Title -->
+
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center">SSC MARKS SHEET DETAILS</h2>
+      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
+        <div>
+          <label class="text-primary" for="file">Upload SSC Marks Memo:</label>
+          <input type="file" id="file" (change)="onFileChange($event)" />
+          <button class="btn btn-success m-5" type="submit" [disabled]="uploadForm.invalid">Upload</button>
+        </div>
+      </form>
+
+      <div *ngIf="marksheetData">
+        <h3>Extracted Data:</h3>
+        <table class="table table-bordered">
+          <tr>
+            <th>Name</th>
+            <td>{{ marksheetData.name }}</td>
+          </tr>
+          <tr>
+            <th>Roll Number</th>
+            <td>{{ marksheetData.roll_number }}</td>
+          </tr>
+          <tr>
+            <th>Examination</th>
+            <td>{{ marksheetData.Examination }}</td>
+          </tr>
+          <tr>
+            <th>Academic Year</th>
+            <td>{{ marksheetData.academic_year }}</td>
+          </tr>
+          <tr>
+            <th>School</th>
+            <td>{{ marksheetData.School }}</td>
+          </tr>
+          <tr>
+            <th>Total Marks</th>
+            <td>{{ marksheetData.Total }}</td>
+          </tr>
+          <tr>
+            <th>Confidence</th>
+            <td>{{ marksheetData.confidence }}</td>
+          </tr>
+        </table>
+
+        <h4>Subjects and Marks:</h4>
+        <table class="table" border="1">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Marks</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let subject of marksheetData.subjects">
+              <td>{{ subject.subject }}</td>
+              <td>{{ subject.marks }}</td>
+              <td>{{ subject.grade }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="errorMessage" class="error">
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+  </section>
+</main>
