@@ -12,6 +12,7 @@ export class SscComponent {
   marksheetData: any = null;
   errorMessage: string = '';
   selectedFile: File | null = null;
+  loading: boolean = false; // Spinner control state
 
   constructor(private fb: FormBuilder, private sscService: aadhaarService) {
     this.uploadForm = this.fb.group({
@@ -55,14 +56,17 @@ export class SscComponent {
       formData.append('filename', customFilename);
     }
 
+    this.loading = true; // Start loading spinner
     this.sscService.extractMarksheetData(formData).subscribe(
       (response) => {
         this.marksheetData = response.marksheet_data; // Assuming the backend response structure
         this.errorMessage = '';
+        this.loading = false; // Hide the spinner when data is loaded
       },
       (error) => {
         this.errorMessage = 'Error extracting SSC data. Please try again.';
         console.error(error);
+        this.loading = false; // Hide the spinner on error
       }
     );
   }

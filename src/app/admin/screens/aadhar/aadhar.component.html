@@ -1,27 +1,36 @@
 <main id="main" class="main">
-    <div class="pagetitle">
-      <h1>Aadhar Details</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-          <li class="breadcrumb-item">Components</li>
-          <li class="breadcrumb-item active">Blank</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-  
-    <section class="section">
-      <div class="container">
-        <h2 class="text-center">Aadhar Card Data Extraction</h2>
-        <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
+  <div class="pagetitle">
+    <h1>Aadhar Details</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Components</li>
+        <li class="breadcrumb-item active">Blank</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center">Aadhar Card Data Extraction</h2>
+      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
         <div>
           <label class="text-primary" for="file">Upload Aadhaar Card PDF:</label>
           <input type="file" id="file" (change)="onFileChange($event)" />
-          <button class="btn btn-success m-5" type="submit" [disabled]="uploadForm.invalid">Upload</button>
+          <button class="btn btn-success m-5" type="submit" [disabled]="uploadForm.invalid || loading">Upload</button>
         </div>  
       </form>
-    
-      <div *ngIf="aadhaarData">
+
+      <!-- Loading Spinner -->
+      <div *ngIf="loading" class="text-center">
+        <p>Loading... Please wait while we extract the data.</p>
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+
+      <!-- Displaying Aadhaar Data -->
+      <div *ngIf="aadhaarData" class="mt-4">
         <h3>Extracted Data:</h3>
         <table class="table" border="1">
           <tr>
@@ -54,10 +63,13 @@
           </tr>
         </table>
       </div>
-    
-      <div *ngIf="errorMessage" class="error">
+
+      <!-- Error Handling -->
+      <div *ngIf="errorMessage" class="text-danger mt-3">
         <p>{{ errorMessage }}</p>
       </div>
     </div>
+
+    <button class="btn btn-danger" [routerLink]="['/admin/upload']">Back</button>
   </section>
 </main>

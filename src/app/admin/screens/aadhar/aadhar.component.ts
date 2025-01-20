@@ -1,5 +1,3 @@
-
-
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { aadhaarService } from './aadhar.service';
@@ -14,8 +12,9 @@ export class AadhaarComponent {
   aadhaarData: any = null;
   errorMessage: string = '';
   selectedFile: File | null = null;
+  loading: boolean = false;  // Spinner control state
 
-  constructor(private fb: FormBuilder, private aadhaarService: aadhaarService) {
+  constructor(private fb: FormBuilder, private aadharService: aadhaarService) {
     this.uploadForm = this.fb.group({
       filename: ['', Validators.maxLength(100)]
     });
@@ -43,16 +42,18 @@ export class AadhaarComponent {
       formData.append('filename', this.uploadForm.get('filename')?.value);
     }
 
-    this.aadhaarService.extractAadhaarData('aadhaar', formData).subscribe(
+    this.loading = true;  // Show the spinner
+    this.aadharService.extractAadhaarData(formData).subscribe(
       (response) => {
         this.aadhaarData = response.aadhaar_data; // Assuming the backend response structure
         this.errorMessage = '';
+        this.loading = false;  // Hide the spinner
       },
       (error) => {
         this.errorMessage = 'Error extracting Aadhaar data. Please try again.';
         console.error(error);
+        this.loading = false;  // Hide the spinner
       }
     );
   }
 }
-

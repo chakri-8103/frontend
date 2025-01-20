@@ -1,34 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';  // Import catchError
-import { of } from 'rxjs';  // Import 'of' to return an observable
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class billsService {
+export class BillsService {
 
-  private apiUrl = 'http://127.0.0.1:8000/extract-marksheet-data/';  // FastAPI endpoint
+  // Replace this URL with the correct FastAPI server URL.
+  private apiUrl = 'http://10.70.9.108:8001/data/';  // Ensure this is correct for file upload.
 
   constructor(private http: HttpClient) { }
 
-  // Function to send file and receive Aadhaar data
-  extractAadhaarData(formData: FormData): Observable<any> {
+  /**
+   * Handle file upload and data extraction.
+   * Sends a POST request with the file and optional custom filename.
+   * 
+   * @param formData The form data containing the file and optional filename.
+   * @returns An Observable that emits the response from the server or an error fallback.
+   */
+  extractBillsData(formData: FormData): Observable<any> {
     return this.http.post<any>(this.apiUrl, formData).pipe(
-      catchError(error => {
-        console.error('Error connecting to FastAPI:', error);  // Log the error
-        return of({ error: 'Error connecting to FastAPI.' });  // Return a default response
-      })
-    );
-  }
+      catchError((error) => {
+        console.error('Error connecting to FastAPI:', error); // Log the error for debugging
 
-  // Function to test connection to FastAPI backend
-  testConnection(): Observable<any> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      catchError(error => {
-        console.error('Error connecting to FastAPI:', error);  // Log the error
-        return of({ error: 'Error connecting to FastAPI.' });  // Return a default response
+        // Return a fallback response when there is an error
+        return of({
+          success: false,
+          message: 'Error connecting to the server. Please try again later.',
+          error: error.message || 'Unknown error'
+        });
       })
     );
   }

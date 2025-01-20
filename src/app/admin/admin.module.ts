@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';  // Added to handle HTT
 import { FormsModule } from '@angular/forms';
 import { AadhaarComponent } from './screens/aadhar/aadhar.component';
 import { SscComponent } from './screens/ssc/ssc.component';
-import { billsComponent } from './screens/bills/bills.component';  // Added for two-way data binding in forms
+import { BillsComponent } from './screens/bills/bills.component';  // Added for two-way data binding in forms
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { billsComponent } from './screens/bills/bills.component';  // Added for 
     UploadComponent,
     AadhaarComponent,
     SscComponent,
-    billsComponent
+    BillsComponent
   ],
   imports: [
     CommonModule,

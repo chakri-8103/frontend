@@ -8,7 +8,7 @@ import { MufasaComponent } from './screens/mufasa/mufasa.component';
 import { UploadComponent } from './screens/upload/upload.component';
 import { AadhaarComponent } from './screens/aadhar/aadhar.component';
 import { SscComponent } from './screens/ssc/ssc.component';
-import { billsComponent } from './screens/bills/bills.component';
+import { BillsComponent } from './screens/bills/bills.component';
 
 const routes: Routes = [
   {
@@ -49,7 +49,7 @@ const routes: Routes = [
       },
       {
         path:'bills',
-        component: billsComponent
+        component: BillsComponent
       }
     ]
   }

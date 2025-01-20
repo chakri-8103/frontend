@@ -1,61 +1,97 @@
 <main id="main" class="main">
-    <div class="pagetitle">
-      <h1>Aadhar Details</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-          <li class="breadcrumb-item">Components</li>
-          <li class="breadcrumb-item active">Blank</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-  
-    <section class="section">
-      <div class="container">
-        <h2 class="text-center">BILLS</h2>
-        <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
+  <div class="pagetitle">
+    <h1>Bill Details</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Components</li>
+        <li class="breadcrumb-item active">Bills</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="text-center">Bill Data Extraction</h2>
+      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
         <div>
-          <label class="text-primary" for="file">Upload SSC Marks Memo:</label>
-          <input type="file" id="file" (change)="onFileChange($event)" />
-          <button class="btn btn-success m-5" type="submit" [disabled]="uploadForm.invalid">Upload</button>
-        </div>  
+          <label class="text-primary" for="file">Upload Bill PDF:</label>
+          <input type="file" id="file" accept="application/pdf, image/*" (change)="onFileChange($event)" [disabled]="loading" />
+          <button class="btn btn-success m-5" type="submit" [disabled]="uploadForm.invalid || loading">Upload</button>
+        </div>
       </form>
-    
-      <div *ngIf="aadhaarData">
-        <h3>Extracted Data:</h3>
-        <table class="table" border="1">
-          <tr>
-            <th>Name</th>
-            <td>{{ aadhaarData.name }}</td>
-          </tr>
-          <tr>
-            <th>Date of Birth</th>
-            <td>{{ aadhaarData.date_of_birth }}</td>
-          </tr>
-          <tr>
-            <th>Gender</th>
-            <td>{{ aadhaarData.gender }}</td>
-          </tr>
-          <tr>
-            <th>Aadhaar Number</th>
-            <td>{{ aadhaarData.aadhaar_number }}</td>
-          </tr>
-          <tr>
-            <th>Address</th>
-            <td>{{ aadhaarData.address }}</td>
-          </tr>
-          <tr>
-            <th>Parent</th>
-            <td>{{ aadhaarData.Parent }}</td>
-          </tr>
-          <tr>
-            <th>Confidence</th>
-            <td>{{ aadhaarData.confidence }}</td>
-          </tr>
-        </table>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="loading" class="text-center">
+        <p>Loading... Please wait while we extract the data.</p>
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-    
-      <div *ngIf="errorMessage" class="error">
+
+      <!-- Displaying Bill Data -->
+      <div *ngIf="billData && billData.length > 0" class="mt-4">
+        <h3>Extracted Bill Data:</h3>
+
+        <!-- Show current page data -->
+        <div *ngIf="billData.length > 0">
+          <h4>Page {{ currentPage + 1 }}</h4>
+          <table class="table table-striped table-hover" border="1">
+            <tr>
+              <th>Invoice Number</th>
+              <td>{{ billData[currentPage]?.data?.invoice_number || 'No data' }}</td>
+            </tr>
+            <tr>
+              <th>Company Name</th>
+              <td>{{ billData[currentPage]?.data?.company_name || 'No data' }}</td>
+            </tr>
+            <tr>
+              <th>Total Amount</th>
+              <td>{{ billData[currentPage]?.data?.total_amount || 'No data' }}</td>
+            </tr>
+            <tr>
+              <th>Tax Amount</th>
+              <td>{{ billData[currentPage]?.data?.tax_amount || 'No data' }}</td>
+            </tr>
+            <tr>
+              <th>Date</th>
+              <td>{{ billData[currentPage]?.data?.date || 'No data' }}</td>
+            </tr>
+            <tr>
+              <th>GST Number</th>
+              <td>{{ billData[currentPage]?.data?.gst_number || 'No data' }}</td>
+            </tr>
+          </table>
+
+          <h5>Products:</h5>
+          <table class="table table-striped table-hover" border="1">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of billData[currentPage]?.data?.products_list">
+                <td>{{ product?.product_name || 'No data' }}</td>
+                <td>{{ product?.quantity || 'No data' }}</td>
+                <td>{{ product?.price || 'No data' }}</td>
+                <td>{{ product?.amount || 'No data' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button class="btn btn-danger m-2" (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
+          <button class="btn btn-success m-2" (click)="nextPage()" [disabled]="currentPage === billData.length - 1">Next</button>
+        </div>
+      </div>
+
+      <!-- Error Handling -->
+      <div *ngIf="errorMessage" class="text-danger mt-3">
         <p>{{ errorMessage }}</p>
       </div>
     </div>
