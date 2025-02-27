@@ -44,7 +44,7 @@ export class DynamicformComponent {
             extractFields(value, fullKey); // Recursively extract fields from the object
           } else if (this.isArray(value)) {
             // If the value is an array, treat it as a dropdown
-            keysList.push({ key: fullKey, isSection: false, isArray: true, arrayData: value });
+            keysList.push({ key: fullKey, isSection: false, isArray: true, arrayData: value as any[] }); // Explicitly cast `value` to `any[]`
           } else {
             // If the value is a primitive, treat it as a normal input field
             formControls[fullKey] = new FormControl(value);
