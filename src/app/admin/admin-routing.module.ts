@@ -9,6 +9,8 @@ import { UploadComponent } from './screens/upload/upload.component';
 import { AadhaarComponent } from './screens/aadhar/aadhar.component';
 import { SscComponent } from './screens/ssc/ssc.component';
 import { BillsComponent } from './screens/bills/bills.component';
+import { DynamicformComponent } from './screens/dynamicform/dynamicform.component';
+import { DynamicFormComponent } from './screens/dynamic/dynamic-form.component';
 
 const routes: Routes = [
   {
@@ -50,6 +52,14 @@ const routes: Routes = [
       {
         path:'bills',
         component: BillsComponent
+      },
+      {
+        path:'dynamicform',
+        component:DynamicformComponent
+      },
+      {
+        path:'dynamic',
+        component:DynamicFormComponent
       }
     ]
   }

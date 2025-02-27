@@ -8,7 +8,6 @@ import { ScreensComponent } from './screens/screens.component';
 import { DashboardComponent } from './screens/dashboard/dashboard.component';
 import { MenuComponent } from './menu/menu.component';
 import { SharedModule } from "../shared/shared.module";
-import { MathJaxDirective } from '../directives/math-jax.directive';
 
 import { searchFilterPipe } from '../utilities/search-filter.pipe';  
 import { CapitalizePipe } from '../utilities/capitalize.pipe';
@@ -18,7 +17,6 @@ import { CapitalizePipe } from '../utilities/capitalize.pipe';
         ScreensComponent,
         DashboardComponent,
         MenuComponent,
-        MathJaxDirective,
         searchFilterPipe,
         CapitalizePipe,
     

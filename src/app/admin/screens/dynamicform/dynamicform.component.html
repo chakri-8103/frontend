@@ -1,0 +1,66 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Updated Form</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+        <li class="breadcrumb-item">Components</li>
+        <li class="breadcrumb-item active">Dynamic Form</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div style="margin-bottom: 15px;">
+      <label style="font-weight: bold;">Enter JSON:</label>
+      <textarea rows="8" cols="100" [(ngModel)]="jsonInput" placeholder="Enter JSON here"
+        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+      <br>
+      <button (click)="generateForm()"
+        style="margin-top: 10px; padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Generate Form
+      </button>
+    </div>
+
+    <p *ngIf="jsonError" style="color: rgb(255, 0, 0); font-weight: bold;">Invalid JSON format! Please check and try again.</p>
+
+    <form *ngIf="formKeys.length > 0" [formGroup]="dynamicForm" (ngSubmit)="onSubmit()"
+      style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #f9f9f9;">
+
+      <div *ngFor="let keyObj of formKeys">
+        <ng-container *ngIf="keyObj.isSection; else inputField">
+          <h3 style="margin-top: 15px; color: #333; text-transform: uppercase; background-color: #e3e3e3; padding: 10px; border-radius: 5px;">
+            {{ formatLabel(keyObj.key) }}
+          </h3>
+        </ng-container>
+
+        <ng-template #inputField>
+          <div style="margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: white;">
+            <ng-container *ngIf="keyObj.isArray; else normalInput">
+              <label style="font-weight: bold; display: block; margin-bottom: 5px;">{{ formatLabel(keyObj.key) }}</label>
+              <div *ngFor="let item of keyObj.arrayData; let i = index" style="margin-bottom: 10px;">
+                <h4 style="margin-top: 10px; color: #555;">Item {{ i + 1 }}</h4>
+                <div *ngFor="let subKey of getObjectKeys(item)" style="margin-bottom: 5px;">
+                  <label style="font-weight: bold; display: block; margin-bottom: 5px;">{{ formatLabel(subKey) }}</label>
+                  <input type="text" [formControlName]="keyObj.key + '.' + i + '.' + subKey" [value]="item[subKey]"
+                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #normalInput>
+              <label style="font-weight: bold; display: block; margin-bottom: 5px;">{{ formatLabel(keyObj.key) }}</label>
+              <input type="text" [formControlName]="keyObj.key"
+                style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px;">
+            </ng-template>
+          </div>
+        </ng-template>
+      </div>
+
+      <br>
+      <button type="submit"
+        style="padding: 10px 15px; font-size: 16px; background-color: green; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Submit
+      </button>
+    </form>
+  </section>
+</main>
