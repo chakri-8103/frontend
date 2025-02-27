@@ -9,7 +9,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class DynamicformComponent {
   jsonInput: string = ''; // JSON input
   dynamicForm: FormGroup = new FormGroup({}); // FormGroup
-  formKeys: { key: string; isSection: boolean; isArray?: boolean; arrayData?: any[] }[] = []; // Store keys (normal, sections, and arrays)
+  formKeys: { key: string; isSection: boolean }[] = []; // Store keys (normal & sections)
   jsonError: boolean = false;
   structuredData: any = {};
 
@@ -21,10 +21,6 @@ export class DynamicformComponent {
     return typeof value === 'object' && value !== null && !Array.isArray(value);
   }
 
-  isArray(value: any): boolean {
-    return Array.isArray(value);
-  }
-
   generateForm() {
     try {
       const parsedData = JSON.parse(this.jsonInput);
@@ -32,21 +28,17 @@ export class DynamicformComponent {
       this.structuredData = parsedData;
 
       const formControls: { [key: string]: FormControl } = {};
-      const keysList: { key: string; isSection: boolean; isArray?: boolean; arrayData?: any[] }[] = [];
+      const keysList: { key: string; isSection: boolean }[] = [];
 
       const extractFields = (obj: any, parentKey: string = '') => {
         Object.entries(obj).forEach(([key, value]) => {
           const fullKey = parentKey ? `${parentKey}.${key}` : key;
 
           if (this.isObject(value)) {
-            // If the value is an object, treat it as a section
+            // If the object is a section, add it separately
             keysList.push({ key: fullKey, isSection: true });
-            extractFields(value, fullKey); // Recursively extract fields from the object
-          } else if (this.isArray(value)) {
-            // If the value is an array, treat it as a dropdown
-            keysList.push({ key: fullKey, isSection: false, isArray: true, arrayData: value as any[] }); // Explicitly cast `value` to `any[]`
+            extractFields(value, fullKey);
           } else {
-            // If the value is a primitive, treat it as a normal input field
             formControls[fullKey] = new FormControl(value);
             keysList.push({ key: fullKey, isSection: false });
           }
