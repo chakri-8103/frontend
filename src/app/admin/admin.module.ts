@@ -17,6 +17,7 @@ import { SscComponent } from './screens/ssc/ssc.component';
 import { BillsComponent } from './screens/bills/bills.component';
 import { DynamicFormComponent } from './screens/dynamic/dynamic-form.component';
 import { DynamicformComponent } from './screens/dynamicform/dynamicform.component';
+import { NotificationComponent } from './screens/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DynamicformComponent } from './screens/dynamicform/dynamicform.componen
     BillsComponent,
     DynamicFormComponent,
     DynamicformComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,

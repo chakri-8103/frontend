@@ -11,6 +11,8 @@ import { SscComponent } from './screens/ssc/ssc.component';
 import { BillsComponent } from './screens/bills/bills.component';
 import { DynamicformComponent } from './screens/dynamicform/dynamicform.component';
 import { DynamicFormComponent } from './screens/dynamic/dynamic-form.component';
+import { NotificationComponent } from './screens/notification/notification.component';
+
 
 const routes: Routes = [
   {
@@ -60,6 +62,10 @@ const routes: Routes = [
       {
         path:'dynamic',
         component:DynamicFormComponent
+      },
+      {
+        path:'notification',
+        component:NotificationComponent
       }
     ]
   }

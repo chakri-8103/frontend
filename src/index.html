@@ -5,19 +5,19 @@
   <title>ABHYAS</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- Favicons -->
+
    <link href="assets/img/favicon.png" rel="icon">
    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-   <!-- Google Fonts -->
+
    <link href="https://fonts.gstatic.com" rel="preconnect">
    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
  
-   <!-- Qr Scanner --> 
+  
    <script src="https://cdn.jsdelivr.net/npm/@undecaf/zbar-wasm@0.9.11/dist/index.js" async=""></script>
 
-   <!-- JsPDF --> 
+
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>   
-   <!-- Vendor CSS Files -->
+
    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -25,10 +25,10 @@
    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   
-   <!-- Template Main CSS File -->
+
    <link href="assets/css/style.css" rel="stylesheet">
    <link href="assets/css/hover.css" rel="stylesheet">
-   <!-- Fontawsome -->
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <script type="text/javascript" async="" src="assets/MathJax-master/MathJax.js?config=TeX-MML-AM_HTMLorMML">
@@ -67,3 +67,71 @@
 <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
 <script src="assets/vendor/tinymce/tinymce.min.js"></script>
 
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Example</title>
+</head>
+
+<body>
+  <button onclick="startNotification()">Start</button>
+
+  <script>
+    function startNotification() {
+      if (!("Notification" in window)) {
+        alert("This browser does not support notifications.");
+        return;
+      }
+
+      Notification.requestPermission().then(permission => {
+        console.log("Notification Permission:", permission);
+
+        if (permission === "granted") {
+          if ("serviceWorker" in navigator) {
+            // ✅ Ensure the Service Worker is registered and active
+            navigator.serviceWorker.register("sw.js").then(registration => {
+              console.log("✅ Service Worker Registered!");
+
+              return navigator.serviceWorker.ready;
+            }).then(registration => {
+              // ✅ Show notification through Service Worker
+              registration.showNotification("🚀 Notification!", {
+                body: "✅ This should appear correctly!",
+                icon: "https://via.placeholder.com/100", // Optional icon
+                vibrate: [200, 100, 200], // Vibration pattern
+                tag: "test-notification" // Prevent duplicate notifications
+              });
+              console.log("✅ Notification displayed successfully.");
+            }).catch(error => {
+              console.error("❌ Service Worker error:", error);
+            });
+          } else {
+            // Fallback to normal Notification API
+            let notification = new Notification("🚀 Notification!", {
+              body: "✅ This should appear correctly!",
+            });
+
+            console.log("✅ Fallback notification should be displayed now.");
+
+            notification.onclick = () => console.log("Notification clicked!");
+            notification.onshow = () => console.log("Notification displayed!");
+            notification.onerror = err => console.error("Notification error:", err);
+            notification.onclose = () => console.log("Notification closed!");
+          }
+        } else {
+          alert("❌ Notifications are blocked! Please enable them in browser settings.");
+        }
+      }).catch(error => {
+        console.error("❌ Notification permission request failed:", error);
+      });
+    }
+
+  </script>
+</body>
+
+</html> -->
