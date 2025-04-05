@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class NotificationService {
   private ws!: WebSocket;
-  private serverUrl = 'ws://10.70.9.141:8080'; // Change to wss:// for HTTPS
+  private serverUrl = 'ws://10.70.9.157:8080'; // Change to wss:// for HTTPS
   private messagesSubject = new BehaviorSubject<string>('');
   messages$ = this.messagesSubject.asObservable();
 
