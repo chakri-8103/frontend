@@ -1,0 +1,65 @@
+<div class="container my-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+      <h2 class="h4 mb-0">FCM Debug Logger (Angular)</h2>
+    </div>
+
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <input [(ngModel)]="suc" name="suc" class="form-control" placeholder="Enter SUC Code" required />
+        </div>
+        <div class="col-md-6">
+          <input [(ngModel)]="student" name="student" class="form-control" placeholder="Student Name" required />
+        </div>
+        <div class="col-md-6">
+          <input [(ngModel)]="campus" name="campus" class="form-control" placeholder="Campus Name" required />
+        </div>
+        <div class="col-md-6">
+          <input [(ngModel)]="course" name="course" class="form-control" placeholder="Course Name" required />
+        </div>
+        <div class="col-12">
+          <button class="btn btn-success w-100" type="button" (click)="subscribe()">
+            <i class="bi bi-bell-fill"></i> Subscribe & Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer bg-light">
+      <h6 class="text-muted">Debug Logs</h6>
+      <pre class="bg-dark text-white p-3 rounded" style="max-height: 250px; overflow-y: auto; font-size: 0.9rem;">
+{{ fcm.logMessages.join('\n') }}
+      </pre>
+    </div>
+  </div>
+
+  <!-- Stored Subscriptions Card -->
+  <div *ngIf="subscribedList.length > 0" class="card mt-4 shadow-sm border-0">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">All Subscribed Data</h5>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-striped table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>SUC</th>
+            <th>Student</th>
+            <th>Campus</th>
+            <th>Course</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of subscribedList">
+            <td>{{ data.suc }}</td>
+            <td>{{ data.student }}</td>
+            <td>{{ data.campus }}</td>
+            <td>{{ data.course }}</td>
+            <td>{{ data.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

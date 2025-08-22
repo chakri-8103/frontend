@@ -10,7 +10,7 @@
     </nav>
   </div>
 
-  <section class="section">
+  <!-- <section class="section">
     <div class="container">
       <h2 class="text-center">SSC MARKS SHEET DETAILS</h2>
       <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
@@ -21,7 +21,7 @@
         </div>
       </form>
 
-      <!-- Loading Spinner -->
+     
       <div *ngIf="loading" class="text-center">
         <p>Loading... Please wait while we extract the data.</p>
         <div class="spinner-border" role="status">
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <!-- Displaying Marksheets Data -->
+    
       <div *ngIf="marksheetData">
         <h3>Extracted Data:</h3>
         <table class="table table-bordered">
@@ -82,11 +82,11 @@
         </table>
       </div>
 
-      <!-- Error Handling -->
+  
       <div *ngIf="errorMessage" class="text-danger mt-3">
         <p>{{ errorMessage }}</p>
       </div>
     </div>
     <button class="btn btn-danger" [routerLink]="['/admin/upload']">Back</button>
-  </section>
+  </section> -->
 </main>

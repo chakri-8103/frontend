@@ -1,0 +1,85 @@
+<main id="main" class="main">
+
+  <section class="section dashboard">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs mb-3" id="notificationTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button"
+              role="tab">Send Notification</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button"
+              role="tab">Notification List</button>
+          </li>
+        </ul>
+
+        <!-- Tabs Content -->
+        <div class="tab-content" id="notificationTabsContent">
+
+          <!-- Send Notification Tab -->
+          <div class="tab-pane fade show active" id="send" role="tabpanel">
+            <div class="card shadow-sm border-0 rounded-4">
+              <div class="card-header">
+                Send Notification
+              </div>
+              <div class="card-body mt-3">
+                <div class="mb-3">
+                  <select [(ngModel)]="sendTopic" class="form-select">
+                    <option value="" disabled selected>Select Topic</option>
+                    <option *ngFor="let topic of topics" [value]="topic.topic">{{ topic.topic }}</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <input type="text" [(ngModel)]="title" class="form-control" placeholder="Title">
+                </div>
+                <div class="mb-3">
+                  <input type="text" [(ngModel)]="body" class="form-control" placeholder="Message Body">
+                </div>
+                <div class="text-end">
+                  <button class="btn btn-success px-4" (click)="sendNotification()" [disabled]="sendLoading">
+                    {{ sendLoading ? 'Sending...' : 'Send' }}
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Notification List Tab -->
+          <div class="tab-pane fade" id="list" role="tabpanel">
+            <div class="card shadow-sm border-0 rounded-4">
+              <div class="card-header">
+                Notification List
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let note of notifications">
+                    <strong>{{ note.title }}</strong><br>
+                    {{ note.body }}
+                    <div class="mt-1">
+                      <small>📌 Topic: {{ note.topic }}</small><br>
+                      <small>🕒 {{ note.sent_at | date: 'medium' }}</small>
+                    </div>
+                    <div *ngIf="note.data && note.data.extraInfo" class="mt-1">
+                      <small>ℹ️ Extra Info: {{ note.data.extraInfo }}</small>
+                    </div>
+                  </li>
+                </ul>
+                <div *ngIf="notifications.length === 0" class="text-muted mt-3 text-center">
+                  No notifications found.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>

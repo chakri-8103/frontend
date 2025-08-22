@@ -7,50 +7,28 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class aadhaarService {
-  private baseUrl = 'http://10.70.9.108:8000'; // Base URL to FastAPI backend
+  private baseUrl = 'http://10.60.1.99:9001'; // Base URL to FastAPI backend
 
   constructor(private http: HttpClient) {}
 
-  // Function to send file and receive Aadhaar data
-  extractAadhaarData(formData: FormData): Observable<any> {
-    const apiUrl = `${this.baseUrl}/extract-aadhaar-data/`; // Correct endpoint for Aadhaar data extraction
+  // General function to send file with doc_type
+  extractData(formData: FormData, docType: string): Observable<any> {
+    const apiUrl = `${this.baseUrl}/extract-fields/?doc_type=${docType}`;
     return this.http.post<any>(apiUrl, formData).pipe(
       catchError((error) => {
-        console.error('Error connecting to FastAPI:', error); // Log the error
-        return of({ error: 'Error connecting to FastAPI.' }); // Return a default response
+        console.error('Error connecting to FastAPI:', error);
+        return of({ error: 'Error connecting to FastAPI.' });
       })
     );
   }
 
-  // Function to send file and receive mark-sheet data
-  extractMarksheetData(formData: FormData): Observable<any> {
-    const apiUrl = `${this.baseUrl}/extract-marksheet-data/`; // Correct endpoint for marksheet data extraction
-    return this.http.post<any>(apiUrl, formData).pipe(
-      catchError((error) => {
-        console.error('Error connecting to FastAPI:', error); // Log the error
-        return of({ success: false, message: 'Error connecting to FastAPI.', error });
-      })
-    );
-  }
-
-  // Function to send file and receive bills data
-  extractBillsData(formData: FormData): Observable<any> {
-    const apiUrl = `${this.baseUrl}/data/`; // Correct endpoint for bills data extraction
-    return this.http.post<any>(apiUrl, formData).pipe(
-      catchError((error) => {
-        console.error('Error connecting to FastAPI:', error); // Log the error
-        return of({ success: false, message: 'Error connecting to FastAPI.', error });
-      })
-    );
-  }
-
-  // Function to test connection to FastAPI backend
+  // Test connection
   testConnection(): Observable<any> {
-    const apiUrl = `${this.baseUrl}/test-connection/`; // General endpoint to test the connection
+    const apiUrl = `${this.baseUrl}/test-connection/`;
     return this.http.get<any>(apiUrl).pipe(
       catchError((error) => {
-        console.error('Error connecting to FastAPI:', error); // Log the error
-        return of({ error: 'Error connecting to FastAPI.' }); // Return a default response
+        console.error('Error connecting to FastAPI:', error);
+        return of({ error: 'Error connecting to FastAPI.' });
       })
     );
   }

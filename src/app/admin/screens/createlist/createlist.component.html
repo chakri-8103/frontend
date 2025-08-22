@@ -1,0 +1,65 @@
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <!-- Optional heading or breadcrumbs -->
+    <nav>
+      <!--
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item">Components</li>
+        <li class="breadcrumb-item active">Create & List</li>
+      </ol>
+      -->
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="container">
+
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-tabs card-header-tabs" id="createListTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="create-tab" data-bs-toggle="tab" data-bs-target="#create" type="button" role="tab">
+                Create
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab">
+                List
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-content p-3" id="createListTabsContent">
+          <!-- Create Tab -->
+          <div class="tab-pane fade show active" id="create" role="tabpanel" aria-labelledby="create-tab">
+            <div>
+              <input type="text" [(ngModel)]="topicName" class="form-control mb-2" placeholder="Topic Name">
+              <textarea [(ngModel)]="description" class="form-control mb-2" placeholder="Description"></textarea>
+              <button class="btn btn-primary" (click)="createTopic()">Create</button>
+            </div>
+          </div>
+
+          <!-- List Tab -->
+          <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="fw-semibold">Topics</span>
+            </div>
+            <ul class="list-group">
+              <li *ngFor="let topic of topics" class="list-group-item d-flex justify-content-between align-items-start">
+                <div>
+                  <strong>{{ topic.topic }}</strong><br>
+                  <small class="text-muted">{{ topic.description }}</small>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteTopic(topic.topic)">Delete</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>

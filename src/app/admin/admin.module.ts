@@ -18,6 +18,13 @@ import { BillsComponent } from './screens/bills/bills.component';
 import { DynamicFormComponent } from './screens/dynamic/dynamic-form.component';
 import { DynamicformComponent } from './screens/dynamicform/dynamicform.component';
 import { NotificationComponent } from './screens/notification/notification.component';
+import { ClassComponent } from './screens/class/class.component';
+import { CreateComponent } from './screens/create/create.component';
+import { ScheduleComponent } from './screens/schedule/schedule.component';
+import { NotifyComponent } from './screens/notify/notify.component';
+import { CreatelistComponent } from './screens/createlist/createlist.component';
+import { SatishComponent } from './screens/satish/satish.component';
+import { EswarComponent } from './screens/eswar/eswar.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +40,14 @@ import { NotificationComponent } from './screens/notification/notification.compo
     BillsComponent,
     DynamicFormComponent,
     DynamicformComponent,
-    NotificationComponent
+    NotificationComponent,
+    ClassComponent,
+    CreateComponent,
+    ScheduleComponent,
+    NotifyComponent,
+    CreatelistComponent,
+    SatishComponent,
+    EswarComponent
   ],
   imports: [
     CommonModule,

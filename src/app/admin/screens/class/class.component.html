@@ -1,0 +1,63 @@
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Student Details</h1>
+    </div>
+
+    <section class="section dashboard">
+        <div class="container mt-5">
+            <h2 class="mb-4">Aadhaar Details</h2>
+
+            <form [formGroup]="aadhaarForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Aadhaar Number</label>
+                    <input type="text" class="form-control" formControlName="aadhaar">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="text" class="form-control" formControlName="dob">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Gender</label>
+                    <select class="form-select" formControlName="gender">
+                        <option value="">Select Gender</option>
+                        <option>MALE</option>
+                        <option>FEMALE</option>
+                        <option>OTHER</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mobile Number</label>
+                    <input type="tel" class="form-control" formControlName="mobile">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" formControlName="address"></textarea>
+                </div>
+                <div class="d-flex gap-3">
+                    <!-- Show Auto Fetch only if no session data -->
+                    <button *ngIf="!hasAadhaarData" class="btn btn-danger" [routerLink]="['/admin/aadhar']">Upload File
+                    </button>
+
+                    <!-- Show Try Again only if session data exists -->
+                    <button *ngIf="hasAadhaarData" type="button" class="btn btn-warning" (click)="tryAgain()">Try
+                        Again</button>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+
+</main>

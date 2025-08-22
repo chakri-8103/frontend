@@ -12,15 +12,22 @@ export class AadhaarComponent {
   aadhaarData: any = null;
   errorMessage: string = '';
   selectedFile: File | null = null;
-  loading: boolean = false;  // Spinner control state
+  loading: boolean = false;
 
-  constructor(private fb: FormBuilder, private aadharService: aadhaarService) {
+  docTypes = [
+    { value: 'aadhar', label: 'Aadhaar' },
+    { value: 'marks', label: 'Marksheet' },
+    { value: 'tc', label: 'Transfer Certificate' },
+    { value: 'generic', label: 'Generic Document' },
+  ];
+
+  constructor(private fb: FormBuilder, private aadhaarService: aadhaarService) {
     this.uploadForm = this.fb.group({
-      filename: ['', Validators.maxLength(100)]
+      filename: ['', Validators.maxLength(100)],
+      docType: ['aadhar', Validators.required]
     });
   }
 
-  // Handle file selection
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -28,7 +35,6 @@ export class AadhaarComponent {
     }
   }
 
-  // Handle file upload and data extraction
   uploadFile() {
     if (!this.selectedFile) {
       this.errorMessage = 'Please select a file before submitting.';
@@ -36,23 +42,30 @@ export class AadhaarComponent {
     }
 
     const formData = new FormData();
-    formData.append('aadhaar', this.selectedFile, this.selectedFile.name);
+    formData.append('file', this.selectedFile, this.selectedFile.name);
 
     if (this.uploadForm.get('filename')?.value) {
       formData.append('filename', this.uploadForm.get('filename')?.value);
     }
 
-    this.loading = true;  // Show the spinner
-    this.aadharService.extractAadhaarData(formData).subscribe(
-      (response) => {
-        this.aadhaarData = response.aadhaar_data; // Assuming the backend response structure
-        this.errorMessage = '';
-        this.loading = false;  // Hide the spinner
+    this.loading = true;
+    const docType = this.uploadForm.get('docType')?.value;
+
+    this.aadhaarService.extractData(formData, docType).subscribe(
+      (response: any) => {
+        if (response && Object.keys(response).length > 0) {
+          this.aadhaarData = { ...response, addressLines: response.address.split(',') };
+          sessionStorage.setItem('aadhaarData', JSON.stringify(this.aadhaarData)); // <-- store in session storage
+          this.errorMessage = '';
+        } else {
+          this.aadhaarData = null;
+          this.errorMessage = 'No data extracted from the file.';
+        }
+        this.loading = false;
       },
-      (error) => {
-        this.errorMessage = 'Error extracting Aadhaar data. Please try again.';
-        console.error(error);
-        this.loading = false;  // Hide the spinner
+      (error: any) => {
+        this.errorMessage = 'Error extracting data. Please try again.';
+        this.loading = false;
       }
     );
   }

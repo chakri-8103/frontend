@@ -12,5 +12,6 @@ export class FormConfigService {
 
   getFormConfig(): Observable<any> {
     return this.http.get<any>(this.jsonUrl);
-  }
+  } 
 }
+ 

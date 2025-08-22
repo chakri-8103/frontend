@@ -30,6 +30,7 @@
     "date-fns": "^4.1.0",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
+    "firebase": "^12.1.0",
     "google-signin-button": "^2.0.0",
     "jquery": "^3.6.3",
     "jspdf": "^2.5.1",

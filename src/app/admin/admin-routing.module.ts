@@ -12,6 +12,12 @@ import { BillsComponent } from './screens/bills/bills.component';
 import { DynamicformComponent } from './screens/dynamicform/dynamicform.component';
 import { DynamicFormComponent } from './screens/dynamic/dynamic-form.component';
 import { NotificationComponent } from './screens/notification/notification.component';
+import { ClassComponent } from './screens/class/class.component';
+import { CreateComponent } from './screens/create/create.component';
+import { ScheduleComponent } from './screens/schedule/schedule.component';
+import { NotifyComponent } from './screens/notify/notify.component';
+import { CreatelistComponent } from './screens/createlist/createlist.component';
+import { SatishComponent } from './screens/satish/satish.component';
 
 
 const routes: Routes = [
@@ -66,6 +72,30 @@ const routes: Routes = [
       {
         path:'notification',
         component:NotificationComponent
+      },
+      {
+        path:'class',
+        component:ClassComponent
+      },
+      {
+        path:'create',
+        component:CreateComponent
+      },
+      {
+        path:'schedule',
+        component:ScheduleComponent
+      },
+      {
+        path:'notify',
+        component:NotifyComponent
+      },
+      {
+        path:'createlist',
+        component:CreatelistComponent
+      },
+      {
+        path:'satish',
+        component:SatishComponent
       }
     ]
   }

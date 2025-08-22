@@ -1,75 +1,87 @@
 <main id="main" class="main">
   <div class="pagetitle">
-    <h1>Aadhar Details</h1>
+    <h1>Document Details</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
         <li class="breadcrumb-item">Components</li>
-        <li class="breadcrumb-item active">Blank</li>
+        <li class="breadcrumb-item active">Upload</li>
       </ol>
     </nav>
-  </div><!-- End Page Title -->
+  </div>
 
   <section class="section">
     <div class="container">
-      <h2 class="text-center">Aadhar Card Data Extraction</h2>
-      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
-        <div>
-          <label class="text-primary" for="file">Upload Aadhaar Card PDF:</label>
-          <input type="file" id="file" (change)="onFileChange($event)" />
-          <button class="btn btn-success m-5" type="submit" [disabled]="uploadForm.invalid || loading">Upload</button>
-        </div>  
+      <h2 class="text-center">Document Data Extraction</h2>
+
+      <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()" class="p-3 border rounded bg-light">
+        <div class="form-group mb-3">
+          <label for="docType" class="form-label fw-bold">Select Document Type</label>
+          <select id="docType" formControlName="docType" class="form-select">
+            <option *ngFor="let type of docTypes" [value]="type.value">{{ type.label }}</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="file" class="form-label text-primary">Upload File:</label>
+          <input type="file" id="file" class="form-control" (change)="onFileChange($event)" />
+        </div>
+
+        <!-- <div class="form-group mb-3">
+          <label for="filename" class="form-label">Optional Filename</label>
+          <input type="text" id="filename" formControlName="filename" class="form-control" />
+        </div> -->
+
+        <button class="btn btn-success" type="submit" [disabled]="uploadForm.invalid || loading">
+          Upload
+        </button>
       </form>
 
       <!-- Loading Spinner -->
-      <div *ngIf="loading" class="text-center">
+      <div *ngIf="loading" class="text-center mt-3">
         <p>Loading... Please wait while we extract the data.</p>
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
 
-      <!-- Displaying Aadhaar Data -->
-      <div *ngIf="aadhaarData" class="mt-4">
-        <h3>Extracted Data:</h3>
-        <table class="table" border="1">
-          <tr>
-            <th>Name</th>
-            <td>{{ aadhaarData.name }}</td>
-          </tr>
-          <tr>
-            <th>Date of Birth</th>
-            <td>{{ aadhaarData.date_of_birth }}</td>
-          </tr>
-          <tr>
-            <th>Gender</th>
-            <td>{{ aadhaarData.gender }}</td>
-          </tr>
-          <tr>
-            <th>Aadhaar Number</th>
-            <td>{{ aadhaarData.aadhaar_number }}</td>
-          </tr>
-          <tr>
-            <th>Address</th>
-            <td>{{ aadhaarData.address }}</td>
-          </tr>
-          <tr>
-            <th>Parent</th>
-            <td>{{ aadhaarData.Parent }}</td>
-          </tr>
-          <tr>
-            <th>Confidence</th>
-            <td>{{ aadhaarData.confidence }}</td>
-          </tr>
-        </table>
+      <!-- Display Extracted Data -->
+      <div *ngIf="aadhaarData" class="mt-4 card shadow-sm p-3">
+        <h5 class="mb-3">Aadhaar Details</h5>
+        <div class="row mb-2">
+          <div class="col-sm-4 fw-bold">Name:</div>
+          <div class="col-sm-8">{{ aadhaarData.name }}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-4 fw-bold">Aadhaar Number:</div>
+          <div class="col-sm-8">{{ aadhaarData.aadhaar_number }}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-4 fw-bold">Date of Birth:</div>
+          <div class="col-sm-8">{{ aadhaarData.dob }}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-4 fw-bold">Gender:</div>
+          <div class="col-sm-8">{{ aadhaarData.gender }}</div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-4 fw-bold">Mobile Number:</div>
+          <div class="col-sm-8">{{ aadhaarData.mobile_number || 'N/A' }}</div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4 fw-bold">Address:</div>
+          <div class="col-sm-8">
+            <div *ngFor="let line of aadhaarData.addressLines">{{ line }}</div>
+          </div>
+          <button class="btn btn-danger mt-3" [routerLink]="['/admin/class']">Auto Fill</button>
+        </div>
       </div>
+
 
       <!-- Error Handling -->
-      <div *ngIf="errorMessage" class="text-danger mt-3">
-        <p>{{ errorMessage }}</p>
-      </div>
-    </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
 
-    <button class="btn btn-danger" [routerLink]="['/admin/upload']">Back</button>
+      <!-- <button class="btn btn-danger mt-3" [routerLink]="['/admin/upload']">Back</button> -->
+    </div>
   </section>
 </main>
