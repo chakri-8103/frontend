@@ -16,7 +16,7 @@
 
       <form [formGroup]="uploadForm" (ngSubmit)="uploadFile()" class="p-3 border rounded bg-light">
         <div class="form-group mb-3">
-          <label for="docType" class="form-label fw-bold">Select Document Type</label>
+          <label for="docType" class="form-label fw-bold">Select Document Type</label> <small class="text-muted">You can select one or more files</small>
           <select id="docType" formControlName="docType" class="form-select">
             <option *ngFor="let type of docTypes" [value]="type.value">{{ type.label }}</option>
           </select>
@@ -27,12 +27,8 @@
           <input type="file" id="file" class="form-control" (change)="onFileChange($event)" />
         </div>
 
-        <!-- <div class="form-group mb-3">
-          <label for="filename" class="form-label">Optional Filename</label>
-          <input type="text" id="filename" formControlName="filename" class="form-control" />
-        </div> -->
-
-        <button class="btn btn-success" type="submit" [disabled]="uploadForm.invalid || loading">
+        <button class="btn btn-success w-100" type="submit"
+          [disabled]="uploadForm.invalid || loading || uploadDisabled">
           Upload
         </button>
       </form>
@@ -45,43 +41,36 @@
         </div>
       </div>
 
-      <!-- Display Extracted Data -->
-      <div *ngIf="aadhaarData" class="mt-4 card shadow-sm p-3">
-        <h5 class="mb-3">Aadhaar Details</h5>
-        <div class="row mb-2">
-          <div class="col-sm-4 fw-bold">Name:</div>
-          <div class="col-sm-8">{{ aadhaarData.name }}</div>
-        </div>
-        <div class="row mb-2">
-          <div class="col-sm-4 fw-bold">Aadhaar Number:</div>
-          <div class="col-sm-8">{{ aadhaarData.aadhaar_number }}</div>
-        </div>
-        <div class="row mb-2">
-          <div class="col-sm-4 fw-bold">Date of Birth:</div>
-          <div class="col-sm-8">{{ aadhaarData.dob }}</div>
-        </div>
-        <div class="row mb-2">
-          <div class="col-sm-4 fw-bold">Gender:</div>
-          <div class="col-sm-8">{{ aadhaarData.gender }}</div>
-        </div>
-        <div class="row mb-2">
-          <div class="col-sm-4 fw-bold">Mobile Number:</div>
-          <div class="col-sm-8">{{ aadhaarData.mobile_number || 'N/A' }}</div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4 fw-bold">Address:</div>
-          <div class="col-sm-8">
-            <div *ngFor="let line of aadhaarData.addressLines">{{ line }}</div>
+      <!-- Display merged data in single card -->
+      <div *ngIf="objectKeys(mergedResponse).length > 0" class="mt-4">
+        <div class="card shadow-lg border-0 rounded-3">
+          <div class="card-header">
+            Student Details
           </div>
-          <button class="btn btn-danger mt-3" [routerLink]="['/admin/class']">Auto Fill</button>
+          <div class="card-body">
+            <div class="row mb-2" *ngFor="let key of objectKeys(mergedResponse)">
+              <div class="col-sm-4 fw-bold">{{ key | titlecase }}:</div>
+              <div class="col-sm-8">
+                <ng-container *ngIf="key === 'address' && mergedResponse.addressLines; else normalField">
+                  <div *ngFor="let line of mergedResponse.addressLines">{{ line }}</div>
+                </ng-container>
+                <ng-template #normalField>
+                  {{ mergedResponse[key] || 'N/A' }}
+                </ng-template>
+              </div>
+            </div>
+            <!-- ✅ Auto Fill button inside card bottom -->
+            <div class="text-center mt-3">
+              <button class="btn btn-danger w-100" [routerLink]="['/admin/class']">
+                Auto Fill
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-
       <!-- Error Handling -->
       <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-
-      <!-- <button class="btn btn-danger mt-3" [routerLink]="['/admin/upload']">Back</button> -->
     </div>
   </section>
 </main>

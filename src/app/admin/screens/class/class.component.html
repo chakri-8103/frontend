@@ -6,50 +6,175 @@
 
     <section class="section dashboard">
         <div class="container mt-5">
-            <h2 class="mb-4">Aadhaar Details</h2>
+            <h2 class="mb-4">Student Info</h2>
 
             <form [formGroup]="aadhaarForm" (ngSubmit)="onSubmit()">
-                <div class="mb-3">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" class="form-control" formControlName="name">
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Student Name</label>
+                        <input type="text" class="form-control" formControlName="studentName">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Surname</label>
+                        <input type="text" class="form-control" formControlName="surname">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Father/Guardian Name</label>
+                        <input type="text" class="form-control" formControlName="fatherName">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Occupation</label>
+                        <input type="text" class="form-control" formControlName="occupation">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Mother Name</label>
+                        <input type="text" class="form-control" formControlName="motherName">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Gender</label>
+                        <select class="form-select" formControlName="gender">
+                            <option value="">Select</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="text" class="form-control" formControlName="dob">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Mobile No</label>
+                        <input type="tel" class="form-control" formControlName="mobile">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Land Number</label>
+                        <input type="text" class="form-control" formControlName="landNumber">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" formControlName="email">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">D.No/Street</label>
+                        <input type="text" class="form-control" formControlName="street">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" formControlName="city">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Pin Code</label>
+                        <input type="text" class="form-control" formControlName="pinCode">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">District</label>
+                        <input type="text" class="form-control" formControlName="district">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-control" formControlName="state">
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Nationality</label>
+                        <input type="text" class="form-control" formControlName="nationality" value="INDIAN">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Religion</label>
+                        <input type="text" class="form-control" formControlName="religion" value="HINDU">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Caste</label>
+                        <select class="form-select" formControlName="caste">
+                            <option>OC</option>
+                            <option>BC</option>
+                            <option>SC</option>
+                            <option>ST</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Sub Caste</label>
+                        <input type="text" class="form-control" formControlName="subCaste">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">PRO Name</label>
+                        <input type="text" class="form-control" formControlName="proName">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Medium</label>
+                        <select class="form-select" formControlName="medium">
+                            <option>E.M.</option>
+                            <option>T.M.</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Aadhaar Number</label>
+                        <input type="text" class="form-control" formControlName="aadhaarNo">
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Aadhaar Number</label>
-                    <input type="text" class="form-control" formControlName="aadhaar">
+                <h5 class="mt-4">Previous Education</h5>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Course</label>
+                        <input type="text" class="form-control" formControlName="examName">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">School/College</label>
+                        <input type="text" class="form-control" formControlName="schoolName">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" formControlName="city">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Marks %</label>
+                        <input type="text" class="form-control" formControlName="totalMarks">
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Date of Birth</label>
-                    <input type="text" class="form-control" formControlName="dob">
+                <h5 class="mt-4">Admission Info</h5>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">School/College</label>
+                        <select class="form-select" formControlName="admissionSchool">
+                            <option>Aditya Institute of PG Studies</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Select Course</label>
+                        <select class="form-select" formControlName="admissionCourse"></select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Select Competitive</label>
+                        <select class="form-select" formControlName="competitive"></select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Bus / Hostel</label>
+                        <select class="form-select" formControlName="busHostel">
+                            <option>None</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Select Stop</label>
+                        <select class="form-select" formControlName="stop"></select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" formControlName="category"></select>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Gender</label>
-                    <select class="form-select" formControlName="gender">
-                        <option value="">Select Gender</option>
-                        <option>MALE</option>
-                        <option>FEMALE</option>
-                        <option>OTHER</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Mobile Number</label>
-                    <input type="tel" class="form-control" formControlName="mobile">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Address</label>
-                    <textarea class="form-control" formControlName="address"></textarea>
-                </div>
                 <div class="d-flex gap-3">
-                    <!-- Show Auto Fetch only if no session data -->
-                    <button *ngIf="!hasAadhaarData" class="btn btn-danger" [routerLink]="['/admin/aadhar']">Upload File
-                    </button>
-
-                    <!-- Show Try Again only if session data exists -->
-                    <button *ngIf="hasAadhaarData" type="button" class="btn btn-warning" (click)="tryAgain()">Try
+                    <button  type="button" class="btn btn-warning" (click)="tryAgain()">Try
                         Again</button>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -57,7 +182,6 @@
 
             </form>
         </div>
-
     </section>
 
 </main>

@@ -21,15 +21,4 @@ export class aadhaarService {
       })
     );
   }
-
-  // Test connection
-  testConnection(): Observable<any> {
-    const apiUrl = `${this.baseUrl}/test-connection/`;
-    return this.http.get<any>(apiUrl).pipe(
-      catchError((error) => {
-        console.error('Error connecting to FastAPI:', error);
-        return of({ error: 'Error connecting to FastAPI.' });
-      })
-    );
-  }
 }
